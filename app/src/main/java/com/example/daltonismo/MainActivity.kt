@@ -1,5 +1,6 @@
 package com.example.daltonismo
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,32 +9,52 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    val MY_RESULT_CODE1 = 99
-    val MY_RESULT_CODE2= 98
-    val MY_RESULT_CODE3= 97
+    private val MY_RESULT_CODE1 = 99
+    private val MY_RESULT_CODE2 = 98
+    private val MY_RESULT_CODE3 = 97
 
-    val CODE1 = 1
-    val CODE2 = 2
-    val CODE3 = 3
+    private val CODE1 = 1
+    private val CODE2 = 2
+    private val CODE3 = 3
 
-    var resposta_1=0
-    var resposta_2=0
-    var resposta_3=0
+    var resposta_1 = 0
+    var resposta_2 = 0
+    var resposta_3 = 0
 
-    var resultado="Resultado:"
+    var resultado = "Resultado:"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        textResp1.text=resposta_1.toString()
-        textResp2.text=resposta_2.toString()
-        textResp3.text=resposta_3.toString()
-        textResultado.text= ("$resultado 0")
+        textResp1.text = resposta_1.toString()
+        textResp2.text = resposta_2.toString()
+        textResp3.text = resposta_3.toString()
+        textResultado.text = ("$resultado 0")
 
         btnTeste1.setOnClickListener(this)
         btnTeste2.setOnClickListener(this)
         btnTeste3.setOnClickListener(this)
+        btnVerificar.setOnClickListener {
+            try {
+
+
+                if (teste()) {
+                    textResultado.text="Você passou no Teste"
+                } else {
+                    textResultado.text="Procurar um médico"
+
+                }
+
+
+            } catch (e: NumberFormatException) {
+                textResultado.text="vALORES INCORRETOS"
+
+                Toast.makeText(this, "VALORES INCORRETOS!", Toast.LENGTH_SHORT).show()
+
+
+            }
+        }
     }
 
 
@@ -41,53 +62,76 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val id = view.id
         var i = Intent(this, TesteActivity::class.java)
-        var cod=0
-        var result=0
-        if(id==R.id.btnTeste1){
-
-              cod=CODE1
-            result=MY_RESULT_CODE1
-
-        }
-        if(id==R.id.btnTeste2){
-            cod=CODE2
-            result=MY_RESULT_CODE2
+        var cod = 0
+        var result = 0
+        if (id == R.id.btnTeste1) {
+            cod = CODE1
+            result = MY_RESULT_CODE1
 
         }
-        if(id==R.id.btnTeste3){
+        if (id == R.id.btnTeste2) {
+            cod = CODE2
+            result = MY_RESULT_CODE2
 
-            cod=CODE3
-            result=MY_RESULT_CODE3
-
-
+        }
+        if (id == R.id.btnTeste3) {
+            cod = CODE3
+            result = MY_RESULT_CODE3
 
         }
 
-         var b = Bundle()
-        b.putInt("codImagem",cod)
+
+        var b = Bundle()
+        b.putInt("codImagem", cod)
         i.putExtras(b)
         //startActivity
-        startActivityForResult(i,result)
+        startActivityForResult(i, result)
 
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==MY_RESULT_CODE1) {
-            val t= data?.getStringExtra("RESPOSTA")
-            textResp1.text=t
+
+        val t = data?.getStringExtra("RESPOSTA")
+
+        when (requestCode) {
+            MY_RESULT_CODE1 -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        textResp1.text = t
+                    }
+                }
+            }
+            MY_RESULT_CODE2 -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        textResp2.text = t
+                    }
+
+
+                }
+            }
+            MY_RESULT_CODE3 -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        textResp3.text = t
+                    }
+
+                }
+            }
+
+
         }
 
-        if(requestCode==MY_RESULT_CODE2) {
-            val t= data?.getStringExtra("RESPOSTA")
-            textResp2.text=t
-        }
-        if(requestCode==MY_RESULT_CODE3) {
-            val t= data?.getStringExtra("RESPOSTA")
-            textResp3.text=t
-        }
 
     }
 
+    fun teste(): Boolean {
+        return textResp1.text.toString().toInt() == 2 &&
+                textResp2.text.toString().toInt() == 12 &&
+                textResp3.text.toString().toInt() == 16
+    }
+
 }
+
