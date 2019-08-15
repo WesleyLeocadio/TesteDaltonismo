@@ -1,5 +1,6 @@
 package com.example.daltonismo
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,10 +23,17 @@ class TesteActivity : AppCompatActivity() {
         if (texto == 3) {
             idImagem.setImageResource(R.drawable.img16)
         }
+        btnOk.setOnClickListener {
+            var i = Intent()
+            i.putExtra("RESPOSTA", editText.text.toString())
+            setResult(Activity.RESULT_OK, i)
+            finish()
+
+        }
 
         btnCancelar.setOnClickListener {
-            var i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+
+            finish()
 
         }
     }

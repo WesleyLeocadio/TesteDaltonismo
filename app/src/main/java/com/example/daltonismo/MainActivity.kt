@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -41,23 +42,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val id = view.id
         var i = Intent(this, TesteActivity::class.java)
         var cod=0
-       // var b = Bundle()
-        //var p:Pessoa =  Pessoa(editUsuario.text.toString(),editSenha.text.toString())
-        //b.putString("Senha", editSenha.text.toString())
-
-        //i.putExtras(b)
-
+        var result=0
         if(id==R.id.btnTeste1){
 
               cod=CODE1
+            result=MY_RESULT_CODE1
 
         }
         if(id==R.id.btnTeste2){
             cod=CODE2
+            result=MY_RESULT_CODE2
+
         }
         if(id==R.id.btnTeste3){
 
             cod=CODE3
+            result=MY_RESULT_CODE3
+
 
 
         }
@@ -65,7 +66,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
          var b = Bundle()
         b.putInt("codImagem",cod)
         i.putExtras(b)
-        startActivity(i)
+        //startActivity
+        startActivityForResult(i,result)
+
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==MY_RESULT_CODE1) {
+            val t= data?.getStringExtra("RESPOSTA")
+            textResp1.text=t
+        }
+
+        if(requestCode==MY_RESULT_CODE2) {
+            val t= data?.getStringExtra("RESPOSTA")
+            textResp2.text=t
+        }
+        if(requestCode==MY_RESULT_CODE3) {
+            val t= data?.getStringExtra("RESPOSTA")
+            textResp3.text=t
+        }
+
+    }
+
 }

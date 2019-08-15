@@ -10,4 +10,6 @@
     <string name="resposta_3">Resposta 3</string>
     <string name="resultado">Resultado</string>
     <string name="resposta_1">Resposta 1</string>
+    <string name="pergunta">Que número você vê na imagem abaixo ?</string>
+    <string name="cancelar">CANCELAR</string>
 </resources>
