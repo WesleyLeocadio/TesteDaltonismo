@@ -12,4 +12,9 @@
     <string name="resposta_1">Resposta 1</string>
     <string name="pergunta">Que número você vê na imagem abaixo ?</string>
     <string name="cancelar">CANCELAR</string>
+    <string name="teste_2">TESTE 2</string>
+    <string name="teste_3">TESTE 3</string>
+    <string name="verificar">VERIFICAR</string>
+    <string name="suas_respostas">Suas respostas</string>
+    <string name="digite">Digite</string>
 </resources>

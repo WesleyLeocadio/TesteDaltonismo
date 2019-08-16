@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val CODE2 = 2
     private val CODE3 = 3
 
-    var resposta_1 = 0
-    var resposta_2 = 0
-    var resposta_3 = 0
+    private var resposta_1 = 0
+    private var resposta_2 = 0
+    private var resposta_3 = 0
 
-    var resultado = "Resultado:"
+    var resultado = "Resultado"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,64 +30,48 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         textResp1.text = resposta_1.toString()
         textResp2.text = resposta_2.toString()
         textResp3.text = resposta_3.toString()
-        textResultado.text = ("$resultado 0")
+        textResultado.text = ("$resultado")
 
         btnTeste1.setOnClickListener(this)
         btnTeste2.setOnClickListener(this)
         btnTeste3.setOnClickListener(this)
+
         btnVerificar.setOnClickListener {
             try {
-
-
-                if (teste()) {
-                    textResultado.text="Você passou no Teste"
-                } else {
-                    textResultado.text="Procurar um médico"
-
-                }
-
-
+                if (teste()) textResultado.text = "Sem sintomas" else textResultado.text = "DALTÔNICO"
             } catch (e: NumberFormatException) {
-                textResultado.text="vALORES INCORRETOS"
-
+                textResultado.text = "Dados incorretos!"
                 Toast.makeText(this, "VALORES INCORRETOS!", Toast.LENGTH_SHORT).show()
-
-
             }
         }
     }
 
 
     override fun onClick(view: View) {
-
         val id = view.id
         var i = Intent(this, TesteActivity::class.java)
         var cod = 0
         var result = 0
-        if (id == R.id.btnTeste1) {
-            cod = CODE1
-            result = MY_RESULT_CODE1
 
+        when(id){
+            R.id.btnTeste1->{
+                cod = CODE1
+                result = MY_RESULT_CODE1
+            }
+            R.id.btnTeste2->{
+                cod = CODE2
+                result = MY_RESULT_CODE2
+            }
+            R.id.btnTeste3->{
+                cod = CODE3
+                result = MY_RESULT_CODE3
+            }
         }
-        if (id == R.id.btnTeste2) {
-            cod = CODE2
-            result = MY_RESULT_CODE2
-
-        }
-        if (id == R.id.btnTeste3) {
-            cod = CODE3
-            result = MY_RESULT_CODE3
-
-        }
-
 
         var b = Bundle()
         b.putInt("codImagem", cod)
         i.putExtras(b)
-        //startActivity
         startActivityForResult(i, result)
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,8 +92,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Activity.RESULT_OK -> {
                         textResp2.text = t
                     }
-
-
                 }
             }
             MY_RESULT_CODE3 -> {
@@ -117,21 +99,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Activity.RESULT_OK -> {
                         textResp3.text = t
                     }
-
                 }
             }
-
 
         }
 
 
     }
 
-    fun teste(): Boolean {
-        return textResp1.text.toString().toInt() == 2 &&
-                textResp2.text.toString().toInt() == 12 &&
-                textResp3.text.toString().toInt() == 16
-    }
+    private fun teste(): Boolean =textResp1.text.toString().toInt() == 2 && textResp2.text.toString().toInt() == 12 && textResp3.text.toString().toInt() == 16
+
 
 }
 

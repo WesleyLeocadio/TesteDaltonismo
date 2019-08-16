@@ -14,27 +14,21 @@ class TesteActivity : AppCompatActivity() {
 
         var params = intent.extras
         var texto = params?.getInt("codImagem")
-        if (texto == 1) {
-            idImagem.setImageResource(R.drawable.img2)
+        when (texto) {
+            1 -> {idImagem.setImageResource(R.drawable.img2)}
+            2 -> { idImagem.setImageResource(R.drawable.img12)}
+            3 -> {idImagem.setImageResource(R.drawable.img16)}
         }
-        if (texto == 2) {
-            idImagem.setImageResource(R.drawable.img12)
-        }
-        if (texto == 3) {
-            idImagem.setImageResource(R.drawable.img16)
-        }
+
         btnOk.setOnClickListener {
             var i = Intent()
             i.putExtra("RESPOSTA", editText.text.toString())
             setResult(Activity.RESULT_OK, i)
             finish()
-
         }
 
         btnCancelar.setOnClickListener {
-
             finish()
-
         }
     }
 

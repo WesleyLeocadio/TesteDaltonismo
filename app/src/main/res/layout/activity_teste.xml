@@ -15,11 +15,12 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.077"
+            android:layout_marginEnd="20dp" android:layout_marginRight="20dp"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintVertical_bias="0.046" android:textSize="30sp"/>
     <ImageView
-            android:layout_width="307dp"
-            android:layout_height="296dp"
+            android:layout_width="281dp"
+            android:layout_height="276dp"
             android:id="@+id/idImagem" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             app:layout_constraintHorizontal_bias="0.184" app:layout_constraintVertical_bias="0.855"
-            android:hint="Digite"/>
+            android:hint="@string/digite"/>
     <Button
             android:text="@android:string/ok"
             android:layout_width="wrap_content"
