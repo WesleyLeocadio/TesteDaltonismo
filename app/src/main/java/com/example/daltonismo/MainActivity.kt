@@ -23,6 +23,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var resultado = "Resultado"
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("resposta1", textResp1.text.toString())
+        outState.putString("resposta2", textResp2.text.toString())
+        outState.putString("resposta3", textResp3.text.toString())
+        outState.putString("resultado", textResultado.text.toString())
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        textResp1.text = savedInstanceState.getString("resposta1")
+        textResp2.text = savedInstanceState.getString("resposta2")
+        textResp3.text = savedInstanceState.getString("resposta3")
+        textResultado.text = savedInstanceState.getString("resultado")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,16 +71,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var cod = 0
         var result = 0
 
-        when(id){
-            R.id.btnTeste1->{
+        when (id) {
+            R.id.btnTeste1 -> {
                 cod = CODE1
                 result = MY_RESULT_CODE1
             }
-            R.id.btnTeste2->{
+            R.id.btnTeste2 -> {
                 cod = CODE2
                 result = MY_RESULT_CODE2
             }
-            R.id.btnTeste3->{
+            R.id.btnTeste3 -> {
                 cod = CODE3
                 result = MY_RESULT_CODE3
             }
@@ -107,7 +125,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun teste(): Boolean =textResp1.text.toString().toInt() == 2 && textResp2.text.toString().toInt() == 12 && textResp3.text.toString().toInt() == 16
+    private fun teste(): Boolean =
+        textResp1.text.toString().toInt() == 2 && textResp2.text.toString().toInt() == 12 && textResp3.text.toString().toInt() == 16
 
 
 }
