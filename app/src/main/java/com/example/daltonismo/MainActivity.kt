@@ -1,6 +1,7 @@
 package com.example.daltonismo
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -62,8 +63,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "VALORES INCORRETOS!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val settings = getSharedPreferences("wesley", Context.MODE_PRIVATE)
+        val salvar = settings.getBoolean("salvar", false)
+        if (salvar){
+            idCkc.isChecked = salvar
+            textResp1.text= settings.getString("resposta1", "")
+            textResp2.text= settings.getString("resposta2", "")
+            textResp3.text= settings.getString("resposta3", "")
+            textResultado.text= settings.getString("resultado", "")
+        }
+
     }
 
+    override fun onStop() {
+        super.onStop()
+        val settings = getSharedPreferences("wesley",Context.MODE_PRIVATE)
+        var editor = settings.edit()
+        if (idCkc.isChecked){
+            editor.putBoolean("salvar", idCkc.isChecked)
+            editor.putString("resposta1",textResp1.text.toString())
+            editor.putString("resposta2",textResp2.text.toString())
+            editor.putString("resposta3",textResp3.text.toString())
+            editor.putString("resultado",textResultado.text.toString())
+            editor.commit()
+        }else{
+            editor.remove("salvar")
+            editor.remove("resposta1")
+            editor.remove("resposta2")
+            editor.remove("resposta3")
+            editor.remove("resultado")
+            editor.commit()
+        }
+    }
 
     override fun onClick(view: View) {
         val id = view.id
